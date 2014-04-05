@@ -21,6 +21,7 @@ MRuby::Build.new do |conf|
 
   # include the default GEMs
   conf.gembox 'default'
+  conf.gem '../mruby-win32gui'
 
   # C compiler settings
   # conf.cc do |cc|
