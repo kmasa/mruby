@@ -1,7 +1,7 @@
 MRuby::Toolchain.new(:visualcpp) do |conf|
   [conf.cc].each do |cc|
     cc.command = ENV['CC'] || 'cl.exe'
-    cc.flags = [ENV['CFLAGS'] || %w(/c /nologo /W3 /Zi /MD /O2 /D_CRT_SECURE_NO_WARNINGS)]
+    cc.flags = [ENV['CFLAGS'] || %w(/c /nologo /W3 /Zi /MDd /Od /D_CRT_SECURE_NO_WARNINGS)]
     cc.include_paths = ["#{MRUBY_ROOT}/include"]
     cc.defines = %w(DISABLE_GEMS)
     cc.option_include_path = '/I%s'
@@ -11,7 +11,7 @@ MRuby::Toolchain.new(:visualcpp) do |conf|
 
   [conf.cxx].each do |cxx|
     cxx.command = ENV['CXX'] || 'cl.exe'
-    cxx.flags = [ENV['CXXFLAGS'] || ENV['CFLAGS'] || %w(/c /nologo /W3 /Zi /MD /O2 /EHsc /D_CRT_SECURE_NO_WARNINGS)]
+    cxx.flags = [ENV['CXXFLAGS'] || ENV['CFLAGS'] || %w(/c /nologo /W3 /Zi /Od /MDd /EHsc /D_CRT_SECURE_NO_WARNINGS)]
     cxx.include_paths = ["#{MRUBY_ROOT}/include"]
     cxx.defines = %w(DISABLE_GEMS)
     cxx.option_include_path = '/I%s'
@@ -21,7 +21,7 @@ MRuby::Toolchain.new(:visualcpp) do |conf|
 
   conf.linker do |linker|
     linker.command = ENV['LD'] || 'link.exe'
-    linker.flags = [ENV['LDFLAGS'] || %w(/NOLOGO /DEBUG /INCREMENTAL:NO /OPT:ICF /OPT:REF)]
+    linker.flags = [ENV['LDFLAGS'] || %w(/NOLOGO /DEBUG /INCREMENTAL:NO)]
     linker.libraries = %w()
     linker.library_paths = %w()
     linker.option_library = '%s.lib'

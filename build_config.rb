@@ -24,7 +24,7 @@ MRuby::Build.new do |conf|
   conf.gem '../mruby-win32gui'
 
   # C compiler settings
-  # conf.cc do |cc|
+  conf.cc do |cc|
   #   cc.command = ENV['CC'] || 'gcc'
   #   cc.flags = [ENV['CFLAGS'] || %w()]
   #   cc.include_paths = ["#{root}/include"]
@@ -32,7 +32,10 @@ MRuby::Build.new do |conf|
   #   cc.option_include_path = '-I%s'
   #   cc.option_define = '-D%s'
   #   cc.compile_options = "%{flags} -MMD -o %{outfile} -c %{infile}"
-  # end
+      p cc.compile_options
+      #cc.compile_options = "/Od /Fo%{outfile} %{infile}"
+      cc.compile_options = "%{flags} /Od /Ob0 /Oy- /nologo /DEBUG /D_DEBUG /DWIN32 /Fo%{outfile} %{infile}"
+  end
 
   # mrbc settings
   # conf.mrbc do |mrbc|
@@ -40,7 +43,7 @@ MRuby::Build.new do |conf|
   # end
 
   # Linker settings
-  # conf.linker do |linker|
+  conf.linker do |linker|
   #   linker.command = ENV['LD'] || 'gcc'
   #   linker.flags = [ENV['LDFLAGS'] || []]
   #   linker.flags_before_libraries = []
@@ -49,8 +52,10 @@ MRuby::Build.new do |conf|
   #   linker.library_paths = []
   #   linker.option_library = '-l%s'
   #   linker.option_library_path = '-L%s'
-  #   linker.link_options = "%{flags} -o %{outfile} %{objs} %{libs}"
-  # end
+    p linker.link_options
+    linker.link_options = "%{flags} /DEBUG /OUT:%{outfile} %{objs} %{flags_before_libraries} %{libs} %{flags_after_libraries}"
+    # "%{flags} /DEBUG -o %{outfile} %{objs} %{libs}"
+  end
 
   # Archiver settings
   # conf.archiver do |archiver|
