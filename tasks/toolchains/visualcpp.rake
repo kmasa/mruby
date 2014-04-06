@@ -11,7 +11,7 @@ MRuby::Toolchain.new(:visualcpp) do |conf|
 
   [conf.cxx].each do |cxx|
     cxx.command = ENV['CXX'] || 'cl.exe'
-    cxx.flags = [ENV['CXXFLAGS'] || ENV['CFLAGS'] || %w(/c /nologo /W3 /Zi /Od /MDd /EHsc /D_CRT_SECURE_NO_WARNINGS)]
+    cxx.flags = [ENV['CXXFLAGS'] || ENV['CFLAGS'] || %w(/c /nologo /W3 /Zi /Od /MDd /EHsc /D_CRT_SECURE_NO_WARNINGS /Zc:forScope /Gd /D_DEBUG)]
     cxx.include_paths = ["#{MRUBY_ROOT}/include"]
     cxx.defines = %w(DISABLE_GEMS)
     cxx.option_include_path = '/I%s'
